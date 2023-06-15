@@ -1,7 +1,10 @@
-# Simple CRUD App with .Net Core 3.0 and Entity Framework
+# Trabalho de Software Engineer
+Simples CRUD de cadastro de Trilhas e Avaliações.
+Exemplo:
+Trilha: Desenvolvedor .NET
+Avaliações: Criação de Web APIs com .NET CORE, Migrations com Entity Framework, Criação de WebApps com Blazor etc..
 
-## Usage instructions
-
+## Como rodar:
 ```
 dotnet restore
 # dotnet tool install --global dotnet-ef
@@ -9,7 +12,4 @@ dotnet ef database update
 dotnet run
 ```
 
-then go `http://localhost:5001` for Swagger UI.
-
-## To Do
-[ ] Write Tests
+Então acesse: `http://localhost:5001` for Swagger UI.
