@@ -26,14 +26,7 @@ namespace ToDo
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-                }
-                else
-                {
-                    options.UseSqlite("Data source=todo.db");
-                }
+                options.UseInMemoryDatabase("trilhas");
             });
             services.AddSwaggerGen(options =>
             {
@@ -53,8 +46,6 @@ namespace ToDo
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 

@@ -12,8 +12,11 @@ RUN dotnet publish TrilhasMicroservice.csproj -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /App
 COPY --from=build-env /App/out .
-
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true  
+ENV ASPNETCORE_URLS=http://+:80
 EXPOSE 3000
-ENV ASPNETCORE_URLS=http://*:3000
+EXPOSE 80
 
-ENTRYPOINT ["dotnet", "TrilhasMicroservice.dll"]
+
+ENTRYPOINT ["dotnet", "TrilhasMicroservice.dll", "--urls", "http://*:80"]
