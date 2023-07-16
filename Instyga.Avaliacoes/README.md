@@ -13,3 +13,8 @@ dotnet run
 ```
 
 Então acesse: `http://localhost:5001` for Swagger UI.
+
+Para rodar o rabbitmq usar comandos do docker:
+
+docker pull rabbitmq:management
+docker run --detach --name rabbitmq-blog-management --publish 5672:5672 --publish 15672:15672 rabbitmq:management

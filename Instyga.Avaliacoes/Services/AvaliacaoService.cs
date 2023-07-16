@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Avaliacoes.Models;
 using AvaliacoesMicroservice.Repositories;
+using Instyga.Avaliacoes.Mensageria;
 
 namespace Instyga.Avaliacoes.Services
 {
@@ -45,6 +46,11 @@ namespace Instyga.Avaliacoes.Services
             unitOfWork.Add(Avaliacao);
             await unitOfWork.Commit();
 
+            PostarNotificacao.Postar(new Notificacao
+            {
+                Trilha = Avaliacao.NomeTrilha,
+                Mensagem = $"Avaliacao {Avaliacao.Nome} foi adicionada a trilha {Avaliacao.NomeTrilha}"
+            });
            return ServiceResult<Avaliacao>.Ok($"Avaliacao {Avaliacao.Nome} criada com sucesso.", Avaliacao);
         }
 
