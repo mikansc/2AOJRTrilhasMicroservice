@@ -18,6 +18,8 @@ namespace Instyga.Notificacoes.HostedServices
     public class RabbitMqListener : IHostedService
     {
         private readonly IServiceProvider serviceProvider;
+        private IModel channel = null;
+        private IConnection connection = null;
 
         public RabbitMqListener(IServiceProvider serviceProvider)
         {
@@ -26,22 +28,31 @@ namespace Instyga.Notificacoes.HostedServices
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            var factory = new ConnectionFactory { 
-                HostName = "rabbitmq",
+            bool bindCreated = false, queueDeclared = false;
+
+            var factory = new ConnectionFactory
+            {
+                HostName = "localhost",
                 UserName = "guest",
                 Password = "guest",
                 ContinuationTimeout = TimeSpan.FromSeconds(120)
             };
 
-            var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
 
-            channel.QueueDeclare("instyga-notifications", durable: true,
-                     exclusive: false,
-                     autoDelete: false);
+            this.connection = factory.CreateConnection();
+            this.channel = connection.CreateModel();
 
-            channel.QueueBind("instyga-notifications", "amq.direct", "");
+            if (!queueDeclared)
+                channel.QueueDeclare("instyga-notifications", durable: true,
+                         exclusive: false,
+                         autoDelete: false);
 
+            queueDeclared = true;
+
+            if (!bindCreated)
+                channel.QueueBind("instyga-notifications", "amq.direct", "");
+
+            bindCreated = true;
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += (model, eventArgs) =>
             {
@@ -62,7 +73,7 @@ namespace Instyga.Notificacoes.HostedServices
                     }
                 }
             };
-
+            await Task.Yield();
             channel.BasicConsume(queue: "instyga-notifications",
                      autoAck: true,
                      consumer: consumer);

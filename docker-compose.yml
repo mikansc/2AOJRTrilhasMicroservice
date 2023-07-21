@@ -1,0 +1,49 @@
+version: '3.4'
+
+services:
+  rabbitmq: # login guest:guest
+    image: rabbitmq:management
+    hostname: "rabbitmq"
+    labels:
+      NAME: "rabbitmq"
+    ports:
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
+      - "25672:25672"
+      - "15671:15671"
+      - "15672:15672"
+
+  trilhas:
+    image: instyga-trilhas
+    hostname: "trilhas"
+    labels:
+      NAME: "trilhas"
+    ports:
+      - "81:80"
+      - "3001:3000"
+    restart: on-failure
+
+
+  avaliacoes:
+    image: instyga.avaliacoes
+    hostname: "avaliacoes"
+    labels:
+      NAME: "avaliacoes"
+    ports:
+      - "82:80"
+      - "3002:3000"
+    restart: on-failure
+
+  notificacoes:
+    image: instyga.notificacoes
+    hostname: "notificacoes"
+    labels:
+      NAME: "notificacoes"
+    ports:
+      - "83:80"
+      - "3003:3000"
+    restart: on-failure
+
+
+
