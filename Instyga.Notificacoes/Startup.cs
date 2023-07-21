@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using Instyga.Notificacoes.HostedServices;
 using Instyga.Notificacoes.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +26,8 @@ namespace Notificacoes
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddHostedService<RabbitMqListener>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseInMemoryDatabase("Notificacoes");
