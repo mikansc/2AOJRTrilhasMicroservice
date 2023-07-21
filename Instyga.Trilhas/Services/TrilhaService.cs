@@ -56,7 +56,7 @@ namespace Instyga.Trilhas.Services
 
             unitOfWork.MarkAsModified(trilha);
             try
-            {
+            { 
                 await unitOfWork.Commit();
             }
             catch (Exception ex)

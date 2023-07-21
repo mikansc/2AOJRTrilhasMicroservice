@@ -19,4 +19,4 @@ EXPOSE 3000
 EXPOSE 80
 
 
-ENTRYPOINT ["dotnet", "NotificacoesMicroservice.dll", "--urls", "http://*:80"]
+ENTRYPOINT ["dotnet", "Instyga.Notificacoes.dll", "--urls", "http://*:80"]

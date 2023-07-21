@@ -4,9 +4,9 @@ WORKDIR /App
 # Copy everything
 COPY . ./
 # Restore as distinct layers
-RUN dotnet restore TrilhasMicroservice.csproj
+RUN dotnet restore Instyga.Trilhas.csproj
 # Build and publish a release
-RUN dotnet publish TrilhasMicroservice.csproj -c Release -o out
+RUN dotnet publish Instyga.Trilhas.csproj -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
@@ -19,4 +19,4 @@ EXPOSE 3000
 EXPOSE 80
 
 
-ENTRYPOINT ["dotnet", "TrilhasMicroservice.dll", "--urls", "http://*:80"]
+ENTRYPOINT ["dotnet", "Instyga.Trilhas.dll", "--urls", "http://*:80"]
