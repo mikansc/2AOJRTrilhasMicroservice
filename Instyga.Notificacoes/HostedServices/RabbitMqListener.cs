@@ -32,7 +32,7 @@ namespace Instyga.Notificacoes.HostedServices
 
             var factory = new ConnectionFactory
             {
-                HostName = "localhost",
+                HostName = "rabbitmq",
                 UserName = "guest",
                 Password = "guest",
                 ContinuationTimeout = TimeSpan.FromSeconds(120)
