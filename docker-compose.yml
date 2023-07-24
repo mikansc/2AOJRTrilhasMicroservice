@@ -1,4 +1,4 @@
-version: '3.4'
+version: "3.4"
 
 services:
   rabbitmq: # login guest:guest
@@ -22,8 +22,9 @@ services:
     ports:
       - "81:80"
       - "3001:3000"
+    depends_on:
+      - rabbitmq
     restart: on-failure
-
 
   avaliacoes:
     image: hbrunialti/avaliacoes
@@ -33,6 +34,8 @@ services:
     ports:
       - "82:80"
       - "3002:3000"
+    depends_on:
+      - rabbitmq
     restart: on-failure
 
   notificacoes:
@@ -43,7 +46,6 @@ services:
     ports:
       - "83:80"
       - "3003:3000"
+    depends_on:
+      - rabbitmq
     restart: on-failure
-
-
-
